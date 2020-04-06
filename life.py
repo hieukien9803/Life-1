@@ -141,7 +141,8 @@ class Life(object):
         Gets amount of rows in new world from user.
         :return: rows
         """
-        rows = toolbox.get_integer("How many rows do you want in your world? ")
+        # Is is error when you have 1x1 world, so let's have 2x2 instead
+        rows = toolbox.get_integer_between(2,50,"How many rows do you want in your world? ")
         return rows
 
     def get_columns(self):
@@ -149,7 +150,8 @@ class Life(object):
         gets amount of columns in new world from user
         :return: columns
         """
-        columns = toolbox.get_integer("How many columns do you want in your world? ")
+        # Is is error when you have 1x1 world, so let's have 2x2 instead
+        columns = toolbox.get_integer_between(2,120,"How many columns do you want in your world? ")
         return columns
 
     def next_generation(self, parameter):
@@ -263,8 +265,11 @@ class Life(object):
         :return:
         """
 
-        if parameter:
+        if parameter and ('x' in parameter):
             for generation in range(1, (int(parameter) + 1)):
+                #
+                # 'Life' object has no attribute 'stop_simulation' 
+                #
                 stop = self.stop_simulation()
                 if stop:
                     print()
